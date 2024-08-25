@@ -3,6 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import HomePage from "../pages/HomePage";
 import PokemonPage from "../pages/PokemonPage";
 import FormCharacterPage from "../pages/FormCharacterPage";
+import PokemonFormsPage from "../pages/PokemonFormsPage";
 
 export let router = createBrowserRouter([
     {
@@ -13,8 +14,9 @@ export let router = createBrowserRouter([
             {index: true, element: <HomePage/>},
             // {path: 'users', element: <UsersPage/>},
             // {path: 'posts', element: <PostsPage/>},
-            {path: ':id', element: <PokemonPage/>},
-            {path: 'form/:id', element: <FormCharacterPage/>},
+            {path: 'pokemon/:name', element: <PokemonPage/>},
+            {path: 'pokemon/:name/forms', element: <PokemonFormsPage/>},
+            // {path: 'form/:id', element: <FormCharacterPage/>},
         ]
     }
 ]);
