@@ -1,36 +1,23 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import {IPokemon} from "../../models/IPokemon";
 import {Link} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../redax/store";
-import {pokemonAction} from "../../redax/slices/pokemonSlice";
+import {getImagePokemon} from "../../helpers/helpers";
 
 type IProps = {
     pokemon: IPokemon,
 }
-const PokemonComponent: FC<IProps> = ({pokemon}) => {
+const PokemonComponent:FC<IProps> = ({pokemon}) => {
+    const path = pokemon.url.split('pokemon/');
+    const newPath = path[1].split('/');
+    const idPokemon = +newPath[0];
 
-    const dispatch = useAppDispatch();
-    const photos = useAppSelector(state => state.pokemonStore.pokemon);
-
-    useEffect(() => {
-        if (pokemon.name) {
-            dispatch(pokemonAction.loadPokemonInfo(pokemon.name));
-        }
-    }, []);
-
+    const img = getImagePokemon(idPokemon);
 
     return (<div className="cardPokemon">
             <Link to={`pokemon/${pokemon.name}`}>
                 <h3>{pokemon.name}</h3>
                 <div className="cardPhotos">
-                    <div><img src={photos?.sprites.back_default} alt=""/></div>
-                    <div><img src={photos?.sprites.back_female} alt=""/></div>
-                    <div><img src={photos?.sprites.back_shiny} alt=""/></div>
-                    <div><img src={photos?.sprites.back_shiny_female} alt=""/></div>
-                    <div><img src={photos?.sprites.front_default} alt=""/></div>
-                    <div><img src={photos?.sprites.front_shiny} alt=""/></div>
-                    <div><img src={photos?.sprites.front_female} alt=""/></div>
-                    <div><img src={photos?.sprites.front_shiny_female} alt=""/></div>
+                    <img src={img} alt=""/>
                 </div>
             </Link>
         </div>

@@ -2,17 +2,17 @@ import {createAsyncThunk, createSlice, isRejected} from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
 import {IPokemon} from "../../models/IPokemon";
 import {pokemonService} from "../../services/api.services";
-import {IPokemons} from "../../models/IPokemons";
 import {IForm} from "../../models/IForm";
 import {IPokemonInfo} from "../../models/IPokemonInfo";
+import {PokemonPaginatioModel} from "../../models/PokemonPaginatioModel";
 
 type UserSliceType = {
     pokemons: IPokemon[];
     formPokemon: IForm | null,
     pokemon: IPokemonInfo | null
     isLoaded: boolean,
+    pagenInfo: PokemonPaginatioModel | null,
     error: string;
-    // pokemon: IPokemon | null;
 }
 const initialState: UserSliceType = {
     pokemons: [],
@@ -20,16 +20,25 @@ const initialState: UserSliceType = {
     pokemon: null,
     isLoaded: false,
     error: '',
-    // pokemon: null
-
+    pagenInfo: null
 };
 
-let loadPokemons = createAsyncThunk('pokemonSlice/loadPokemons', async (_, thunkAPI) => {
+let loadPokemons = createAsyncThunk('pokemonSlice/loadPokemons', async (offset:string, thunkAPI) => {
     try {
-        let pokemons = await pokemonService.getAll()
+        let pokemons = await pokemonService.getAll(offset)
         .then(res=> res.results);
-
         return thunkAPI.fulfillWithValue(pokemons);
+    } catch (e) {
+        let error = e as AxiosError;
+        return thunkAPI.rejectWithValue(error?.response?.data);
+    }
+});
+
+let loadPaginatedInfo = createAsyncThunk('pokemonPaginatedSlice/loadPagination', async (offset:string, thunkAPI) => {
+    try {
+        let pagenInfo = await pokemonService.getPaginationInfo(offset)
+            .then(res=> res);
+        return thunkAPI.fulfillWithValue(pagenInfo);
     } catch (e) {
         let error = e as AxiosError;
         return thunkAPI.rejectWithValue(error?.response?.data);
@@ -68,6 +77,13 @@ export const pokemonSlice = createSlice({
                     state.pokemons = action.payload;
                     state.isLoaded = true;
                 })
+
+            .addCase(
+                loadPaginatedInfo.fulfilled,
+                (state, action) => {
+                    state.pagenInfo = action.payload;
+                    state.isLoaded = true;
+                })
             .addCase(
                 loadFormsPokemon.fulfilled,
                 (state, action) => {
@@ -85,12 +101,12 @@ export const pokemonSlice = createSlice({
                 (state, action) => {
                     state.error = action.payload as string;
                 })
-
 });
 
 export const pokemonAction = {
     ...pokemonSlice.actions,
     loadPokemons,
     loadFormsPokemon,
-    loadPokemonInfo
+    loadPokemonInfo,
+    loadPaginatedInfo
 }

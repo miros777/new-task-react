@@ -20,7 +20,7 @@ const initialState: PaginationSliceType = {
 
 let loadInfoPafinations = createAsyncThunk('pokemonSlice/loadUsers', async (_, thunkAPI) => {
     try {
-        let infoPagination = await pokemonService.getPaginationInfo(1,20);
+        let infoPagination = await pokemonService.getPaginationInfo('1');
             // .then(resronce=> resronce);
         return thunkAPI.fulfillWithValue(infoPagination);
     } catch (e) {

@@ -1,30 +1,24 @@
-import React, {FC, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../redax/store";
 import {pokemonAction} from "../redax/slices/pokemonSlice";
 import PaginationComponent from "../components/PaginationComponent/PaginationComponent";
-import {pokemonService} from "../services/api.services";
 import PokemonComponent from "../components/PocemonComponent/PokemonComponent";
+import {useSearchParams} from "react-router-dom";
 
 
-type IProps = {
-    searchParams: {
-        offset?: string
-    }
-}
 const HomePage = () => {
 
     const dispatch = useAppDispatch();
     const pokemons = useAppSelector(state => state.pokemonStore.pokemons);
 
-    useEffect(() => {
-        dispatch(pokemonAction.loadPokemons());
-    }, []);
+    let [query] = useSearchParams({offset: '0'});
 
-    // const page = searchParams['offset'] ?? '1'
-    // const pagInfo = await pokemonService.getPaginationInfo(1,20);
-    //
-    // const start = (Number(page) - 1);
-    // const end = 0;
+    useEffect(() => {
+    const currentOffset = query.get('offset') || '0';
+        dispatch(pokemonAction.loadPokemons(currentOffset));
+    }, [query]);
+
+    // console.log(pokemons);
 
     return (
         <div>
@@ -35,6 +29,7 @@ const HomePage = () => {
                         <PokemonComponent key={i} pokemon={pokemon}/>
                     )
                 }
+               <PaginationComponent/>
             </div>
         </div>
     );

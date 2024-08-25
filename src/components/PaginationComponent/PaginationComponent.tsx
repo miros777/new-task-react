@@ -1,49 +1,55 @@
-import React, {FC} from 'react';
-import {useLocation, useSearchParams} from "react-router-dom";
-import {router} from "../../router";
+import React, {useEffect} from 'react'
+import {useSearchParams} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../redax/store";
+import {pokemonAction} from "../../redax/slices/pokemonSlice";
 
-interface PaginationControlsProps {
-    hasNextPage: boolean
-    hasPrevPage: boolean
-}
 
-const PaginationComponent: FC<PaginationControlsProps> = (
-    {
-        hasNextPage,
-        hasPrevPage,
-    }
-) => {
-    // const router = useRouter();
-    // let rout = useLocation();
-    // console.log(rout);
-    const searchParams = useSearchParams();
-    // const page = searchParams.get('offset') ?? '1'
+const PaginationComponent = () => {
+
+    const dispatch = useAppDispatch();
+    const paginInfo = useAppSelector(state => state.pokemonStore.pagenInfo);
+
+    let [query, setQuery] = useSearchParams({offset: '0'});
+
+    useEffect(() => {
+        const currentOffset = query.get('offset') || '0';
+        dispatch(pokemonAction.loadPaginatedInfo(currentOffset));
+    }, [query]);
+
+    const previous = paginInfo?.previous;
+    const next = paginInfo?.next;
 
     return (
-        <div className="pagination">
+        <div>
+
             <button
-                className='bg-blue-500 text-white p-1'
-                disabled={!hasPrevPage}
+                disabled={!previous}
                 onClick={() => {
-                    // router.push(`?offset=${Number(page) - 1}`);
-                }}>
-                prev page
+                    const page = query.get('offset');
+                    if (page) {
+                        let currentPage = +page;
+                        currentPage -= 20;
+                        setQuery({offset: currentPage.toString()})
+                    }
+                }}
+            >
+                prev
             </button>
 
-            <div className="pagination-num">
-                {/*{page}*/}
-            </div>
-
             <button
-                className='bg-blue-500 text-white p-1'
-                disabled={!hasNextPage}
+                disabled={!next}
                 onClick={() => {
-                    // router.push(`?offset=${Number(page) + 1}`);
-                }}>
-                next page
+                    const page = query.get('offset');
+                    if (page) {
+                        let currentPage = +page;
+                        currentPage += 20;
+                        setQuery({offset: currentPage.toString()})
+                    }
+
+                }}
+            >next
             </button>
         </div>
-    )
-}
-
+    );
+};
 export default PaginationComponent;

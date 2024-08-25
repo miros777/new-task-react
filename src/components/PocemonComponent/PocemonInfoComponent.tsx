@@ -7,11 +7,10 @@ type IProps = {
 }
 const PocemonInfoComponent: FC<IProps> = ({pokemon}: IProps) => {
     return (
-        <div key={pokemon?.id}>
-
+        <div>
             <h2>{pokemon?.name}</h2>
-            <h4>ability: {pokemon?.abilities.map(v =>
-                <div>
+            <h4>ability: {pokemon?.abilities.map((v, index) =>
+                <div key={index}>
                     <div>slot: {v?.slot}</div>
                     <div>is_hidden: {v?.is_hidden}</div>
                     <div>ability.url: {v.ability?.url}</div>
@@ -21,13 +20,13 @@ const PocemonInfoComponent: FC<IProps> = ({pokemon}: IProps) => {
             </h4>
             <div className="d-flex j-c-center f-column">
                 <h4>forms:</h4>
-                {pokemon?.forms.map(v =>
+                {pokemon?.forms.map((v, index) =>
 
-                    <Link className="formBtn" to={`forms/?forms=${v.url}`}>{v.name}</Link>
+                    <Link className="formBtn" to={`forms/?forms=${v.url}`} key={index}>{v.name}</Link>
                 )}
             </div>
-            <h4>stats: {pokemon?.stats.map(v =>
-                <div>
+            <h4>stats: {pokemon?.stats.map((v, index) =>
+                <div key={index}>
                     <h5>stat</h5>
                     <div>stat.url: {v.stat.url}</div>
                     <div>stat.name: {v.stat.name}</div>
@@ -36,8 +35,8 @@ const PocemonInfoComponent: FC<IProps> = ({pokemon}: IProps) => {
                 </div>
             )}
             </h4>
-            <h4>stats: {pokemon?.types.map(v =>
-                <div>
+            <h4>stats: {pokemon?.types.map((v, index) =>
+                <div key={index}>
                     <h5>slot</h5>
                     <div>slot: {v.slot}</div>
                     <div>type.url: {v.type.url}</div>
