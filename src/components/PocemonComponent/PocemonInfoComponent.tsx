@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 type IProps = {
     pokemon: IPokemonInfo | null,
 }
-const PocemonInfoComponent: FC<IProps> = ({pokemon}: IProps) => {
+const PocemonInfoComponent: FC<IProps> = ({pokemon}) => {
     return (
         <div className="wrapper d-flex j-c-center f-column">
             <h1>{pokemon?.name}</h1>

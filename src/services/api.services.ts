@@ -56,7 +56,6 @@ const pokemonApiSearch = {
         const response = await axiosInstans.get<IPokemonInfo>(baseUrl + "/pokemon/" + name)
         return response.data;
     }
-
 }
 export {
     pokemonService,

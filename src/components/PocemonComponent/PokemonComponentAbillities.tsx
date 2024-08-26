@@ -1,11 +1,14 @@
 import React, {FC} from 'react';
-import {getImagePokemon, urlSlice} from "../../helpers/helpers";
+import {urlSlice} from "../../helpers/helpers";
 import {Link} from "react-router-dom";
 
 type IProps = {
-    // pokemon:IAbilitySearchModel,
+    pokemon: {
+        name: string,
+        url: string
+    }
 }
-const PokemonComponentAbillities: FC<any> = ({pokemon}) => {
+const PokemonComponentAbillities: FC<any> = ({pokemon}:IProps) => {
 
     const urlPokemon = pokemon.url;
     const img = urlSlice(urlPokemon, 'pokemon/');
