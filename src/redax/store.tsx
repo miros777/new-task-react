@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 export const store = configureStore({
     reducer: {
         pokemonStore: pokemonSlice.reducer,
-        // pokemonInfoStore: pokemonInfoSlice.reducer,
     }
 });
 

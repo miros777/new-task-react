@@ -6,10 +6,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+ul, li{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 h1,h2,h3,h4{
   text-align: center;
@@ -23,6 +27,27 @@ h1,h2,h3,h4{
 .j-c-center{
    justify-content: center;
  }
+.j-c-space-around{
+  justify-content: space-around;
+}
+.j-c-between{
+  justify-content: space-between;
+}
+form input{
+  padding: 15px 10px;
+  border: none;
+  outline: navajowhite;
+}
+form button{
+  background: #ed5fa0;
+  color: white;
+  min-width: 60px;
+  border: none;
+}
+form button:hover{
+  cursor: pointer;
+  background: rgba(238, 19, 73, 0.71);
+}
 .formBtn{
   text-decoration: none;
   font-size: 20px;
@@ -33,14 +58,34 @@ h1,h2,h3,h4{
   text-align: center;
   padding: 25px 40px;
   background: rebeccapurple;
-  max-width: 150px;
+  max-width: 180px;
   box-sizing: border-box;
   border-radius: 5px;
 }
 .wrapper{
   padding: 0 15px;
-  /*margin: 0 auto;*/
+}
+.pagination .currentPage{
+  text-align: center;
+  font-size: 12px;
+  min-width: 100px;
 
+  margin: 0 30px
+}
+.pagination button{
+  font-size: 20px;
+  background: pink;
+  width: 100px;
+  border: 1px solid blanchedalmond;
+
+}
+.currentPage span:last-child{
+  font-size: 40px;
+  font-weight: 900;
+  color: rebeccapurple;
+}
+.pagination button:hover{
+  cursor: pointer;
 }
 .f-wrap{
   flex-wrap: wrap;
@@ -57,8 +102,13 @@ h1,h2,h3,h4{
   background: #d1f2ff;
   text-align: center;
   margin: 20px 1%;
-  padding: 20px;
+  /*padding: 20px;*/
   box-sizing: border-box;
+  min-width: 250px;
+}
+.cardPokemon a{
+  display: block;
+  padding: 20px;
 }
 .cardFormPakemon{
   border: 1px solid rebeccapurple;
@@ -68,4 +118,99 @@ h1,h2,h3,h4{
   padding: 20px;
   box-sizing: border-box;
   text-align: center;
+  font-size: 18px;
+  font-weight: 500;
 }
+form label span{
+  position: absolute;
+  top: 100%;
+  font-size: 14px;
+  color: red;
+}
+form label{
+  position: relative;
+}
+.topMenu{
+  align-items: center;
+}
+.topMenu ul li{
+  margin-top: 5px;
+}
+.topMenu ul{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.headerTop{
+  padding: 20px 0 50px;
+  background: #ffd9df;
+}
+.headerTop form{
+  margin: 0 40px;
+}
+.topMenu .homeUrl{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: pink;
+  font-size: 26px;
+  text-transform: uppercase;
+  padding: 10px;
+  color: white;
+  font-weight: 700;
+  border-radius: 5px;
+}
+a{
+  text-decoration: none;
+}
+footer{
+  padding: 20px;
+  background: #6970a7;
+  margin-top: 50px;
+}
+.pagination{
+  padding: 20px 0;
+}
+.infoPocemonItem{
+  border: 1px solid #6970a7;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+.infoPocemonItem a{
+  text-align: center;
+}
+.PocemonInfoForms{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.cardPokemon:hover{
+  position: relative;
+  top: -4px;
+  -webkit-box-shadow: -1px 18px 74px -23px rgba(3,217,255,1);
+  -moz-box-shadow: -1px 18px 74px -23px rgba(3,217,255,1);
+  box-shadow: -1px 18px 74px -23px rgba(3,217,255,1);
+  transition: 1s ease;
+
+}
+.cardPokemon{
+  transition: 1s ease;
+}
+.infoPocemonItem a:hover{
+  background: pink;
+  color: black;
+}
+.homeUrl img{
+  width: 100%;
+}
+.homeUrl{
+  width: 150px;
+}
+button:disabled{
+  cursor: default;
+  background: #e58fb6 !important;
+}
+

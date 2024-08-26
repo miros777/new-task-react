@@ -19,15 +19,21 @@ const PaginationComponent = () => {
     const previous = paginInfo?.previous;
     const next = paginInfo?.next;
 
-    return (
-        <div>
+    let currentPage:number = (Number(query.get('offset')) / 20);
+    if(currentPage > 0){
+        currentPage = currentPage + 1;
+    }else {
+        currentPage = 1;
+    }
 
+    return (
+        <div className="wrapper d-flex f-wrap j-c-center pagination">
             <button
                 disabled={!previous}
                 onClick={() => {
-                    const page = query.get('offset');
-                    if (page) {
-                        let currentPage = +page;
+                    const offset = query.get('offset');
+                    if (offset) {
+                        let currentPage = +offset;
                         currentPage -= 20;
                         setQuery({offset: currentPage.toString()})
                     }
@@ -36,12 +42,18 @@ const PaginationComponent = () => {
                 prev
             </button>
 
+            <div className="currentPage d-flex f-column j-c-center ">
+                <span>page</span>
+                <span>{currentPage}</span>
+            </div>
+
+
             <button
                 disabled={!next}
                 onClick={() => {
-                    const page = query.get('offset');
-                    if (page) {
-                        let currentPage = +page;
+                    const offset = query.get('offset');
+                    if (offset) {
+                        let currentPage = +offset;
                         currentPage += 20;
                         setQuery({offset: currentPage.toString()})
                     }

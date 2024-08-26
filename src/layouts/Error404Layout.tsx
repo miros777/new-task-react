@@ -1,16 +1,15 @@
 import React from 'react';
-import {Outlet} from "react-router-dom";
 import HeaderComponent from "../components/header/HeaderComponent";
 import FooterComponent from "../components/footer/FooterComponent";
 
-const MainLayout = () => {
+const Error404Layout = () => {
     return (
-        <div className="wrapper">
+        <div>
             <HeaderComponent/>
-            <Outlet/>
+            <h1>Error 404!</h1>
             <FooterComponent/>
         </div>
     );
 };
 
-export default MainLayout;
+export default Error404Layout;

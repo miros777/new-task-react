@@ -1,17 +1,14 @@
 import React, {FC} from 'react';
 import {IPokemon} from "../../models/IPokemon";
 import {Link} from "react-router-dom";
-import {getImagePokemon} from "../../helpers/helpers";
+import {urlSlice} from "../../helpers/helpers";
 
 type IProps = {
     pokemon: IPokemon,
 }
-const PokemonComponent:FC<IProps> = ({pokemon}) => {
-    const path = pokemon.url.split('pokemon/');
-    const newPath = path[1].split('/');
-    const idPokemon = +newPath[0];
-
-    const img = getImagePokemon(idPokemon);
+const PokemonComponent: FC<IProps> = ({pokemon}) => {
+    const urlPokemon = pokemon.url;
+    const img = urlSlice(urlPokemon, 'pokemon/');
 
     return (<div className="cardPokemon">
             <Link to={`pokemon/${pokemon.name}`}>

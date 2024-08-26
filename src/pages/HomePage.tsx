@@ -18,7 +18,6 @@ const HomePage = () => {
         dispatch(pokemonAction.loadPokemons(currentOffset));
     }, [query]);
 
-    // console.log(pokemons);
 
     return (
         <div>
@@ -29,8 +28,9 @@ const HomePage = () => {
                         <PokemonComponent key={i} pokemon={pokemon}/>
                     )
                 }
-               <PaginationComponent/>
             </div>
+
+            <PaginationComponent/>
         </div>
     );
 };

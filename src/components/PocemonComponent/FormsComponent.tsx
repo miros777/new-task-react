@@ -4,21 +4,18 @@ import {IForm} from "../../models/IForm";
 type IProps = {
     dataForm: IForm | null
 }
-const FormsComponent = ({dataForm}:IProps) => {
+const FormsComponent:FC<IProps> = ({dataForm}:IProps) => {
 
     return (
         <div className="cardFormPakemon">
-            <div>id: {dataForm?.id}</div>
-            <div>name: {dataForm?.name}</div>
-            <div>{dataForm?.pokemon.name?.name}</div>
-            <div>{dataForm?.pokemon.name?.url}</div>
+            <h2>{dataForm?.name}</h2>
             <div>form_order: {dataForm?.form_order}</div>
             <div>{dataForm?.types.map((v, index) =>
                 <div key={index}>
-                    <h4>types {index}</h4>
+                    <h3>types {index +1}</h3>
                     <div>slot: {v.slot}</div>
-                    <div>type.name: {v.type.name}</div>
-                    <div>type.url: {v.type.url}</div><br/>
+                    <div>name: {v.type.name}</div>
+                    <div>{v.type.url}</div><br/>
                 </div>
             )}
             </div>
